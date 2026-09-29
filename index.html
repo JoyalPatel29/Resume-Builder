@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7ff">
+  <title>Resume Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top"><span class="brand-icon">▤</span><span>Resume Builder<small>Create your professional resume in minutes.</small></span></a>
+    <div class="header-note"><span class="live-dot"></span> Your changes save automatically</div>
+  </header>
+
+  <main class="app-shell" id="top">
+    <section class="form-column" aria-label="Resume details">
+      <div class="column-heading"><div><p class="eyebrow">LET'S GET STARTED</p><h1>Build your resume</h1><p class="muted">Add your details below and watch your resume take shape.</p></div></div>
+      <form id="resumeForm" novalidate>
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">👤</span><div><h2>Personal Information</h2><p>Your name and contact details</p></div></div>
+          <div class="field-grid">
+            <label class="field full">Full Name <span class="required">*</span><input id="fullName" name="fullName" placeholder="e.g. Alex Morgan" required autocomplete="name"></label>
+            <label class="field">Email <span class="required">*</span><input id="email" name="email" type="email" placeholder="alex@example.com" required autocomplete="email"></label>
+            <label class="field">Phone <span class="required">*</span><input id="phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" required autocomplete="tel"></label>
+            <label class="field">Location<input id="location" name="location" placeholder="San Francisco, CA" autocomplete="address-level2"></label>
+            <label class="field">LinkedIn URL<input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/you"></label>
+            <label class="field">GitHub URL<input id="github" name="github" type="url" placeholder="https://github.com/you"></label>
+            <label class="field full">Profile Photo <span class="optional">Optional</span><input id="photo" name="photo" type="file" accept="image/*" class="file-input"><span class="field-hint">A small, clear headshot works best.</span></label>
+          </div>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">🎯</span><div><h2>Professional Summary</h2><p>A short introduction about you</p></div></div>
+          <label class="field">Summary<textarea id="summary" name="summary" rows="4" placeholder="Information Technology student interested in Web Development, Data Analytics and AI, with experience building academic and personal projects."></textarea></label>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">🎓</span><div><h2>Education</h2><p>Your academic background</p></div></div>
+          <div id="educationList" class="entry-list"></div>
+          <button class="button button-secondary add-button" type="button" id="addEducationButton">＋ Add Education</button>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">💡</span><div><h2>Skills</h2><p>Highlight your strongest abilities</p></div></div>
+          <div class="skill-input-row"><input id="skillInput" placeholder="Enter a skill" aria-label="Enter a skill"><button class="button button-secondary" type="button" id="addSkillButton">＋ Add Skill</button></div>
+          <div id="skillList" class="skill-chips" aria-live="polite"></div>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">🚀</span><div><h2>Projects</h2><p>Show what you’ve built</p></div></div>
+          <div id="projectList" class="entry-list"></div>
+          <button class="button button-secondary add-button" type="button" id="addProjectButton">＋ Add Project</button>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">💼</span><div><h2>Experience / Internship</h2><p>Work experience, internships, or volunteering</p></div></div>
+          <div id="experienceList" class="entry-list"></div>
+          <button class="button button-secondary add-button" type="button" id="addExperienceButton">＋ Add Experience</button>
+        </section>
+
+        <section class="form-card">
+          <div class="card-heading"><span class="section-icon">🏅</span><div><h2>Certifications</h2><p>Courses and credentials you’ve earned</p></div></div>
+          <div id="certificationList" class="entry-list"></div>
+          <button class="button button-secondary add-button" type="button" id="addCertificationButton">＋ Add Certification</button>
+        </section>
+
+        <div class="form-actions"><button class="button button-danger" type="button" id="clearButton">🗑️ Clear Form</button><span>Your information stays in this browser.</span></div>
+      </form>
+    </section>
+
+    <aside class="preview-column" aria-label="Resume preview">
+      <div class="preview-toolbar"><div><p class="eyebrow">LIVE PREVIEW</p><h2>Resume Preview</h2></div><button class="button button-primary" type="button" id="downloadButton">⬇️ Download Resume</button></div>
+      <div class="paper-wrap"><article id="resumePreview" class="resume-paper" aria-label="Generated resume">
+        <header class="resume-header"><div class="resume-identity"><h1 id="previewName">Your Name</h1><div class="contact-line" id="previewContact"></div><div class="link-line" id="previewLinks"></div></div><img id="previewPhoto" class="preview-photo" alt="Profile photo" hidden></header>
+        <div id="previewSections"></div>
+      </article></div>
+      <p class="preview-caption">A4 page · Your resume updates as you type</p>
+    </aside>
+  </main>
+  <footer class="site-footer">Made with <span aria-label="love"></span> using HTML, CSS &amp; JavaScript</footer>
+
+  <template id="educationTemplate"><div class="entry-card" data-kind="education"><button class="remove-button" type="button" data-action="remove" aria-label="Remove education">Remove</button><div class="field-grid"><label class="field full">Degree / Course<input data-field="degree" placeholder="B.Tech Information Technology"></label><label class="field full">College / University<input data-field="school" placeholder="A.D. Patel Institute of Technology"></label><label class="field">Start Year<input data-field="start" placeholder="2024"></label><label class="field">End Year<input data-field="end" placeholder="2028"></label><label class="field full">CGPA / Percentage<input data-field="grade" placeholder="7.79 CGPA"></label></div></div></template>
+  <template id="projectTemplate"><div class="entry-card" data-kind="project"><button class="remove-button" type="button" data-action="remove" aria-label="Remove project">Remove Project</button><div class="field-grid"><label class="field full">Project Name<input data-field="name" placeholder="Resume Builder"></label><label class="field full">Project Description<textarea data-field="description" rows="3" placeholder="A responsive web application that helps users create a professional resume with a live preview."></textarea></label><label class="field full">Technologies Used<input data-field="technologies" placeholder="HTML, CSS, JavaScript"></label><label class="field full">Project Link <span class="optional">Optional</span><input data-field="link" type="url" placeholder="https://github.com/you/project"></label></div></div></template>
+  <template id="experienceTemplate"><div class="entry-card" data-kind="experience"><button class="remove-button" type="button" data-action="remove" aria-label="Remove experience">Remove</button><div class="field-grid"><label class="field full">Job Role / Position<input data-field="role" placeholder="Web Development Intern"></label><label class="field full">Company Name<input data-field="company" placeholder="Company name"></label><label class="field">Start Date<input data-field="start" placeholder="Jun 2025"></label><label class="field">End Date<input data-field="end" placeholder="Aug 2025"></label><label class="field full">Description<textarea data-field="description" rows="3" placeholder="Describe your contributions and impact."></textarea></label></div></div></template>
+  <template id="certificationTemplate"><div class="entry-card" data-kind="certification"><button class="remove-button" type="button" data-action="remove" aria-label="Remove certification">Remove</button><div class="field-grid"><label class="field full">Certification Name<input data-field="name" placeholder="Web Development Fundamentals"></label><label class="field full">Issuing Organization<input data-field="issuer" placeholder="Organization name"></label><label class="field">Year<input data-field="year" placeholder="2025"></label><label class="field">Certificate Link <span class="optional">Optional</span><input data-field="link" type="url" placeholder="https://example.com/certificate"></label></div></div></template>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
