@@ -50,7 +50,7 @@ This project was created to practice frontend web development and JavaScript by 
 
 👨‍💻 Author
 
-Joy Patel
+Joyal Patel
 
 B.Tech Information Technology Student
 A.D. Patel Institute of Technology (ADIT)
